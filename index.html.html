@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Muhtaroğlu Holding - Organizational Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+        :root {
+        --c-holding: #1a237e;
+        --c-denetim: #c0392b;
+        --c-icra: #1565c0;
+        --c-merkez: #7b1fa2;
+        --c-coo: #e65100;
+        --c-ceo: #1565c0;
+        --c-cfo: #2e7d32;
+        --c-esg: #00897b;
+        --c-chro: #6a1b9a;
+        --c-caco: #0277bd;
+        --c-fab1: #2e7d32;
+        --c-fab2: #e65100;
+        --bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --text: #212121;
+        --text-sub: #616161;
+        --border: #e0e0e0;
+        --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 40px 20px 100px;
+        min-height: 100vh;
+        overflow-x: auto;
+    }
+
+    .org-header { text-align: center; margin-bottom: 48px; }
+    .org-title {
+        font-size: 32px; font-weight: 800;
+        color: var(--c-holding); letter-spacing: -1px;
+    }
+    .org-subtitle {
+        font-size: 11px; color: var(--text-sub);
+        text-transform: uppercase; letter-spacing: 3px; margin-top: 6px; font-weight: 600;
+    }
+
+    .tree {
+        display: flex; flex-direction: column; align-items: center;
+        max-width: 1800px; margin: 0 auto; position: relative;
+    }
+    .tree-level {
+        display: flex; justify-content: center; gap: 24px;
+        width: 100%; margin-bottom: 0; position: relative;
+    }
+
+    .tree-level::before {
+        content: ''; position: absolute;
+        top: -26px; left: 50%; transform: translateX(-50%);
+        width: 2px; height: 26px; background: #bdc3c7;
+    }
+    .tree-level:first-child::before { display: none; }
+
+    .branch {
+        display: flex; flex-direction: column; align-items: center;
+        position: relative; flex: 1;
+    }
+    .branch::before {
+        content: ''; position: absolute;
+        top: -26px; left: 50%; transform: translateX(-50%);
+        width: 2px; height: 26px; background: #bdc3c7;
+    }
+    .tree-level:first-child .branch::before { display: none; }
+
+    .branch-connector {
+        position: absolute; top: -26px; left: 0; right: 0;
+        height: 2px; background: #bdc3c7;
+    }
+    .branch:first-child .branch-connector { left: 50%; }
+    .branch:last-child .branch-connector { right: 50%; }
+    .branch:only-child .branch-connector { display: none; }
+
+    .tree-level { margin-bottom: 52px; }
+
+    .org-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden; width: 100%;
+        transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        position: relative;
+        border: 1px solid rgba(0,0,0,0.04);
+    }
+    .org-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+
+    .t-holding { --theme: var(--c-holding); }
+    .t-denetim { --theme: var(--c-denetim); }
+    .t-icra    { --theme: var(--c-icra); }
+    .t-merkez  { --theme: var(--c-merkez); }
+    .t-coo     { --theme: var(--c-coo); }
+    .t-ceo     { --theme: var(--c-ceo); }
+    .t-cfo     { --theme: var(--c-cfo); }
+    .t-esg     { --theme: var(--c-esg); }
+    .t-chro    { --theme: var(--c-chro); }
+    .t-caco    { --theme: var(--c-caco); }
+    .t-fab1    { --theme: var(--c-fab1); }
+    .t-fab2    { --theme: var(--c-fab2); }
+
+    .org-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0;
+        height: 4px; background: var(--theme);
+    }
+
+    .card-header {
+        padding: 18px 20px 14px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,255,255,0.9));
+        border-bottom: 1px solid var(--border);
+        position: relative;
+    }
+    .card-badge {
+        position: absolute; top: 14px; right: 14px;
+        background: var(--theme); color: white;
+        font-size: 9px; font-weight: 700;
+        padding: 4px 10px; border-radius: 20px;
+        text-transform: uppercase; letter-spacing: 0.5px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .card-title {
+        font-size: 14px; font-weight: 700;
+        color: var(--theme); margin-bottom: 3px;
+        letter-spacing: 0.2px; padding-right: 72px; line-height: 1.3;
+    }
+    .card-subtitle {
+        font-size: 11px; color: var(--text-sub); font-weight: 500;
+    }
+    .card-clevel-label {
+        font-size: 10px; font-weight: 700;
+        color: white; background: var(--theme);
+        display: inline-block;
+        padding: 2px 10px; border-radius: 4px;
+        margin-top: 6px; letter-spacing: 0.3px;
+    }
+
+    .accordion-list { list-style: none; }
+    .accordion-item { border-bottom: 1px solid var(--border); }
+    .accordion-item:last-child { border-bottom: none; }
+
+    .accordion-trigger {
+        width: 100%; padding: 14px 20px;
+        background: transparent; border: none;
+        display: flex; justify-content: space-between; align-items: center;
+        cursor: pointer; transition: background 0.2s; text-align: left; gap: 10px;
+    }
+    .accordion-trigger:hover { background: rgba(0,0,0,0.02); }
+
+    .accordion-title { font-size: 12px; font-weight: 600; color: var(--text); display: block; }
+    .accordion-desc { font-size: 10px; color: var(--text-sub); display: block; margin-top: 1px; font-weight: 500; }
+
+    .accordion-icon {
+        width: 24px; height: 24px; border-radius: 50%;
+        background: var(--theme); color: white;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 16px; font-weight: 300;
+        transition: all 0.3s; flex-shrink: 0; margin-left: 8px;
+    }
+    .accordion-trigger[aria-expanded="true"] .accordion-icon {
+        transform: rotate(45deg); background: var(--text-sub);
+    }
+
+    .accordion-content {
+        max-height: 0; overflow: hidden;
+        transition: max-height 0.4s ease-out; background: #fafbfc;
+    }
+    .accordion-content.open {
+        max-height: 4000px; transition: max-height 0.6s ease-in;
+    }
+
+    .role-list { list-style: none; padding: 0 20px 16px; }
+    .role-item {
+        padding: 5px 0; border-bottom: 1px solid #f0f0f0;
+        font-size: 11px; display: flex; align-items: flex-start;
+        gap: 6px; line-height: 1.5;
+    }
+    .role-item:last-child { border-bottom: none; }
+
+    .role-clevel {
+        font-weight: 800; color: var(--theme); font-size: 12px;
+        background: linear-gradient(90deg, rgba(0,0,0,0.04), transparent);
+        padding: 6px 10px; border-radius: 6px; margin: 4px 0;
+        border-left: 3px solid var(--theme); width: 100%;
+    }
+    .role-director {
+        font-weight: 700; color: var(--text); padding-left: 12px;
+        border-left: 2px solid var(--theme); width: 100%; font-size: 11px;
+    }
+    .role-manager { font-weight: 600; color: var(--text); padding-left: 22px; width: 100%; font-size: 11px; }
+    .role-chief {
+        font-weight: 600; color: var(--text-sub); padding-left: 34px;
+        position: relative; font-size: 10px; width: 100%;
+    }
+    .role-chief::before {
+        content: '›'; position: absolute; left: 22px;
+        color: var(--theme); font-weight: 800; font-size: 14px;
+    }
+    .role-specialist { color: var(--text-sub); padding-left: 46px; font-size: 10px; width: 100%; }
+    .role-operator { color: #0277bd; font-family: monospace; font-size: 10px; padding-left: 46px; width: 100%; }
+    .role-assistant { color: #9e9e9e; font-style: italic; font-size: 10px; padding-left: 46px; width: 100%; }
+    .section-divider {
+        font-weight: 700; font-size: 9px; text-transform: uppercase;
+        color: var(--theme); letter-spacing: 1.5px;
+        padding: 12px 0 5px; opacity: 0.8; width: 100%;
+        border-bottom: 1px dashed rgba(0,0,0,0.1); margin-bottom: 4px;
+    }
+
+    .level-esg-hukuk {
+        justify-content: center;
+        gap: 24px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .level-esg-hukuk .branch { max-width: 320px; min-width: 260px; flex: 1; }
+    .level-esg-hukuk::before {
+        content: '';
+        position: absolute;
+        top: -26px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 26px;
+        background: #1565c0;
+    }
+
+    .level-clevel .branch::before { display: none !important; }
+    .level-clevel .branch-connector { display: none !important; }
+    .level-clevel::before { display: none !important; }
+
+    #icra-clevel-svg {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        overflow: visible;
+        z-index: 5;
+    }
+
+    .branch-merkez {
+        flex: none !important;
+        min-width: 320px;
+        max-width: 400px;
+        align-self: flex-start;
+    }
+    .branch-merkez::before { display: none !important; }
+    .branch-icra { position: relative; }
+    .icra-merkez-line { display: block; }
+
+    .level-holding { max-width: 420px; }
+    .level-holding .branch { max-width: 420px; }
+    .level-icra { gap: 24px; justify-content: center; }
+    .level-icra .branch { max-width: 380px; }
+    .level-clevel { gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .level-clevel .branch { max-width: 240px; min-width: 200px; flex: 1; }
+
+    .controls {
+        position: fixed; bottom: 28px; right: 28px;
+        display: flex; gap: 10px; z-index: 100;
+    }
+    .control-btn {
+        background: white; border: 2px solid #1a237e;
+        padding: 12px 22px; border-radius: 28px;
+        font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+        cursor: pointer; box-shadow: var(--shadow);
+        transition: all 0.2s; color: #1a237e;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .control-btn:hover { background: #1a237e; color: white; transform: translateY(-2px); }
+
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .tree-level { animation: fadeInUp 0.5s ease-out backwards; }
+    .tree-level:nth-child(1) { animation-delay: 0s; }
+    .tree-level:nth-child(2) { animation-delay: 0.1s; }
+    .tree-level:nth-child(3) { animation-delay: 0.2s; }
+    .tree-level:nth-child(4) { animation-delay: 0.3s; }
+    .tree-level:nth-child(5) { animation-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+        .tree-level { flex-direction: column; align-items: center; gap: 0; margin-bottom: 0; }
+        .branch { max-width: 100% !important; min-width: 0 !important; width: 100%; }
+        .org-card { max-width: 400px !important; }
+        .branch-connector, .branch::before, .tree-level::before { display: none; }
+    }
+</style>
+</head>
+<body>
+
+    <header class="org-header">
+        <h1 class="org-title">MUHTAROĞLU HOLDING</h1>
+        <p class="org-subtitle">Corporate Organizational Chart</p>
+    </header>
+
+    <div class="tree">
+
+        <!-- LEVEL 1: HOLDING -->
+        <div class="tree-level">
+            <div class="branch level-holding">
+                <div class="org-card t-holding">
+                    <div class="card-header">
+                        <span class="card-badge">BOARD</span>
+                        <h2 class="card-title">BOARD OF DIRECTORS</h2>
+                        <p class="card-subtitle">Executive Management & Oversight</p>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Board Members</span>
+                                    <span class="accordion-desc">Strategic Management & Decision Making</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">CHAIRMAN OF THE BOARD</span></li>
+                                    <li class="role-item"><span class="role-clevel">VICE CHAIRMAN OF THE BOARD</span></li>
+                                    <li class="role-item"><span class="role-director">BOARD MEMBER (Financial Affairs)</span></li>
+                                    <li class="role-item"><span class="role-director">BOARD MEMBER (Business Development)</span></li>
+                                    <li class="role-item"><span class="role-assistant">Secretary General of the Board</span></li>
+                                    <li class="role-item"><span class="role-assistant">Board Assistant</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEVEL 2: EXECUTIVE & AUDIT -->
+        <div class="tree-level level-icra">
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-denetim">
+                    <div class="card-header">
+                        <span class="card-badge">AUDIT</span>
+                        <h2 class="card-title">AUDIT & RISK</h2>
+                        <p class="card-subtitle">Independent Committee</p>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Independent Audit</span>
+                                    <span class="accordion-desc">Risk & Internal Control</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">INDEPENDENT AUDIT COMMITTEE CHAIR</span></li>
+                                    <li class="role-item"><span class="role-director">Risk & Internal Control Director</span></li>
+                                    <li class="role-item"><span class="role-manager">Internal Audit Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Senior Financial Auditor</span></li>
+                                    <li class="role-item"><span class="role-specialist">Operational Process Auditor</span></li>
+                                    <li class="role-item"><span class="role-specialist">IT Auditor</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="branch branch-icra" id="branch-icra">
+                <div class="branch-connector"></div>
+                <div class="org-card t-icra">
+                    <div class="card-header">
+                        <span class="card-badge">EXEC</span>
+                        <h2 class="card-title">GROUP EXECUTIVE COMMITTEE</h2>
+                        <p class="card-subtitle">Executive Committee</p>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">C-Level Management Team</span>
+                                    <span class="accordion-desc">Executive Committee Members & Reporting Lines</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">GROUP CEO (Chief Executive Officer)</span></li>
+                                    <li class="role-item"><span class="role-clevel">GROUP CFO (Chief Financial Officer)</span></li>
+                                    <li class="role-item"><span class="role-clevel">GROUP COO / HEAD OF PRODUCTION</span></li>
+                                    <li class="role-item"><span class="role-clevel">CHIEF ESG & SUSTAINABILITY OFFICER</span></li>
+                                    <li class="role-item"><span class="role-clevel">CHRO (Chief Human Resources Officer)</span></li>
+                                    <li class="role-item"><span class="role-clevel">CHIEF ADMINISTRATIVE & COMMUNICATION OFFICER</span></li>
+                                    <li class="role-item"><span class="role-director">Group General Counsel (CLO)</span></li>
+                                    <li class="role-item"><span class="role-assistant">Executive Committee Secretary</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <svg class="icra-merkez-line" id="icra-merkez-svg" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:50%;right:0;pointer-events:none;overflow:visible;z-index:10;">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#7b1fa2"/>
+                        </marker>
+                    </defs>
+                    <line id="icra-line" x1="0" y1="0" x2="0" y2="0"
+                          stroke="#7b1fa2" stroke-width="2" stroke-dasharray="6,3"
+                          marker-end="url(#arrowhead)"/>
+                </svg>
+            </div>
+
+            <!-- CENTRAL FUNCTIONS -->
+            <div class="branch branch-merkez" id="branch-merkez">
+                <div class="org-card t-merkez">
+                    <div class="card-header">
+                        <span class="card-badge">SHARED</span>
+                        <h2 class="card-title">CORPORATE FUNCTIONS</h2>
+                        <p class="card-subtitle">Shared Services Directorates</p>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">MU-DENET Executive Office</span>
+                                    <span class="accordion-desc">2nd Line Control & Audit</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">MU-DENET Executive Office Director</span></li>
+                                    <li class="role-item"><span class="role-manager">Internal Audit & Risk Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Senior Financial Auditor</span></li>
+                                    <li class="role-item"><span class="role-specialist">Operational Process Auditor</span></li>
+                                    <li class="role-item"><span class="role-specialist">IT Auditor</span></li>
+                                    <li class="role-item"><span class="role-specialist">Compliance & Ethics Specialist</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">ERP Directorate</span>
+                                    <span class="accordion-desc">Finance / Trade / Stock</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">ERP DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-manager">ERP Project Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">ERP Support Specialist (Finance Module)</span></li>
+                                    <li class="role-item"><span class="role-specialist">ERP Support Specialist (Trade Module)</span></li>
+                                    <li class="role-item"><span class="role-specialist">ERP Support Specialist (Inventory/Production Module)</span></li>
+                                    <li class="role-item"><span class="role-specialist">System & Database Administrator</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">MENS Directorate</span>
+                                    <span class="accordion-desc">Production Methodology & Realization</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">MENS DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-manager">Production Planning & Control Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">S&OP Coordinator</span></li>
+                                    <li class="role-item"><span class="role-specialist">Capacity Planning Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Production Efficiency Engineer</span></li>
+                                    <li class="role-item"><span class="role-specialist">Process Improvement Specialist (Lean/Six Sigma)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">QMCC Directorate</span>
+                                    <span class="accordion-desc">Quality & Food Safety Center</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">QMCC DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-manager">Food Safety & Quality Systems Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">HACCP & ISO 22000 Coordinator</span></li>
+                                    <li class="role-item"><span class="role-specialist">Quality Management System (ISO 9001) Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Audit & Certification Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Supplier Quality Development Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Customer Complaints & CAPA Manager</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">REM Directorate</span>
+                                    <span class="accordion-desc">Energy & Resource Management</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">REM DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-manager">Energy Management Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Energy Efficiency Engineer</span></li>
+                                    <li class="role-item"><span class="role-specialist">Renewable Energy & Sustainability Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Water & Waste Management Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Facility Infrastructure & Utility Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">ESG ENGINE</span></li>
+                                    <li class="role-item"><span class="role-specialist">ESG Methodology & Reporting Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Sustainability Data Analyst</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEVEL 3: C-LEVEL OFFICES -->
+        <div class="tree-level level-clevel" id="level-clevel">
+            <svg id="icra-clevel-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            
+            <!-- ESG OFFICE -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-esg">
+                    <div class="card-header">
+                        <span class="card-badge">ESG</span>
+                        <h2 class="card-title">ESG & SUSTAINABILITY</h2>
+                        <p class="card-subtitle">Environmental, Social, Governance</p>
+                        <span class="card-clevel-label">CHIEF ESG & SUSTAINABILITY OFFICER</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">ESG & Sustainability</span>
+                                    <span class="accordion-desc">Environmental, Social, Governance</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">CHIEF ESG & SUSTAINABILITY OFFICER</span></li>
+                                    <li class="role-item"><span class="role-manager">Sustainability Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">ESG Reporting & Methodology Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Carbon Footprint & Climate Change Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Social Impact & Gender Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Sustainable Supply Chain Specialist</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- LEGAL OFFICE -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-esg">
+                    <div class="card-header">
+                        <span class="card-badge">CLO</span>
+                        <h2 class="card-title">LEGAL & COMPLIANCE</h2>
+                        <p class="card-subtitle">Group General Counsel</p>
+                        <span class="card-clevel-label">GROUP GENERAL COUNSEL (CLO)</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Legal & Compliance (CLO)</span>
+                                    <span class="accordion-desc">Group General Counsel</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">GROUP GENERAL COUNSEL (CLO)</span></li>
+                                    <li class="role-item"><span class="role-manager">Senior Legal Counsel</span></li>
+                                    <li class="role-item"><span class="role-specialist">Corporate Lawyer (Contracts)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Corporate Lawyer (Labor Law)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Corporate Lawyer (Commercial Law)</span></li>
+                                    <li class="role-item"><span class="role-specialist">KVKK & Compliance Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regulation & Legislation Specialist</span></li>
+                                    <li class="role-item"><span class="role-assistant">Legal Case Tracker</span></li>
+                                    <li class="role-item"><span class="role-assistant">Legal Unit Secretary</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- COO OFFICE / HEAD OF PRODUCTION -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-coo">
+                    <div class="card-header">
+                        <span class="card-badge">COO</span>
+                        <h2 class="card-title">COO / HEAD OF PRODUCTION</h2>
+                        <p class="card-subtitle">Production & Operations</p>
+                        <span class="card-clevel-label">GROUP COO / HEAD OF PRODUCTION</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">FACTORY 1 - B2B INDUSTRIAL</span>
+                                    <span class="accordion-desc">Concentrate & Puree Production</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div style="padding:12px 16px; background:#f0fdf4; border-radius:8px; margin:8px 16px; font-size:11px; font-weight:700; color:#388e3c; letter-spacing:0.5px;">▶ FACTORY 1 SUB-UNITS</div>
+                                <ul class="role-list">
+<li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Factory Management</span>
+                                    <span class="accordion-desc">Site Director (B2B) & Senior Staff</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">FACTORY DIRECTOR (Site Director - B2B)</span></li>
+                                    <li class="role-item"><span class="role-director">Operations Director</span></li>
+                                    <li class="role-item"><span class="role-assistant">Factory Executive Assistant</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Operations & Production</span>
+                                    <span class="accordion-desc">Shift-based Production Line</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Production Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Production Engineer</span></li>
+                                    <li class="role-item"><span class="role-specialist">Process/Brix Optimization Engineers</span></li>
+                                    <li class="role-item"><span class="role-chief">Shift Supervisors / Line Chiefs</span></li>
+                                    <li class="role-item"><span class="role-operator">Operators</span></li>
+                                    <li class="role-item"><span class="role-specialist">Process Control & Improvement</span></li>
+                                    <li class="role-item"><span class="role-specialist">Production Planning (S&OP alignment)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Raw Material & Agricultural Supply</span>
+                                    <span class="accordion-desc">Agricultural Procurement & Contract Farming</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Raw Material Supply Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Contract Farming Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Field Purchase Supervisors</span></li>
+                                    <li class="role-item"><span class="role-specialist">Input/Farmer Compliance Specialist (Sustainable agriculture)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Raw Material Receipt Control (Quality collaboration)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Quality, Analytical & Technical Customer (QMCC)</span>
+                                    <span class="accordion-desc">Independent Quality Management</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Quality Assurance Manager (B2B)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Food Safety/HACCP Leader</span></li>
+                                    <li class="role-item"><span class="role-specialist">Laboratory & LIMS Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Sample & Retain Management</span></li>
+                                    <li class="role-item"><span class="role-specialist">CAPA & Change Management Coordinator</span></li>
+                                    <li class="role-item"><span class="role-specialist">Technical Customer/Specification Compliance Specialist</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Energy & Utility (REM)</span>
+                                    <span class="accordion-desc">Facility Infrastructure & Energy Management</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Energy & Utility Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Boiler/Steam Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Cooling/Chiller Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Water/Treatment Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Energy Efficiency Engineer</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Maintenance & Technical Services</span>
+                                    <span class="accordion-desc">Mechanical, Electrical, Automation</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Maintenance Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Mechanical Maintenance Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Mechanical Maintenance (Pump/Gearbox)</span></li>
+                                    <li class="role-item"><span class="role-operator">Mechanical Maintenance (Hydraulic/Pneumatic)</span></li>
+                                    <li class="role-item"><span class="role-operator">Argon Welder (Stainless Pipe) - Master</span></li>
+                                    <li class="role-item"><span class="role-operator">Argon Welder - Apprentice</span></li>
+                                    <li class="role-item"><span class="role-operator">Gas & Electric Welder</span></li>
+                                    <li class="role-item"><span class="role-operator">Lathe & Bench Fitter</span></li>
+                                    <li class="role-item"><span class="role-operator">Industrial Plumber</span></li>
+                                    <li class="role-item"><span class="role-operator">Lubrication Technician</span></li>
+                                    <li class="role-item"><span class="role-chief">Electrical & Automation Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Electrical Maintenance Technician 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Electrical Maintenance Technician 2</span></li>
+                                    <li class="role-item"><span class="role-operator">PLC & Automation Technician</span></li>
+                                    <li class="role-item"><span class="role-operator">Instrumentation Technician</span></li>
+                                    <li class="role-item"><span class="role-chief">Auxiliary Facilities & Infrastructure Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Boiler Room Operator (Stoker) - Shift A</span></li>
+                                    <li class="role-item"><span class="role-operator">Boiler Room Operator (Stoker) - Shift B</span></li>
+                                    <li class="role-item"><span class="role-operator">Cooling Group (Chiller) Technician</span></li>
+                                    <li class="role-item"><span class="role-operator">Water Treatment Plant Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Compressor Maintenance</span></li>
+                                    <li class="role-item"><span class="role-operator">Construction Maintenance (Paint/Plaster)</span></li>
+                                    <li class="role-item"><span class="role-operator">Waste & Scrap Area Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Gardener & Landscaping</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Logistics, Warehouse & Export Operations</span>
+                                    <span class="accordion-desc">Inventory Management & Dispatch</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Warehouse & Dispatch Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Finished Goods Warehouse Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Inventory Control & Count Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Waybill & Dispatch Officer</span></li>
+                                    <li class="role-item"><span class="role-operator">Reach Truck Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Reach Truck Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Forklift Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Forklift Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Electric Pallet Truck Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Dispatch Loader 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Dispatch Loader 2</span></li>
+                                    <li class="role-item"><span class="role-chief">Raw Material & Packaging Warehouse Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Packaging Warehouse Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Raw Material Receipt Control Clerk</span></li>
+                                    <li class="role-item"><span class="role-chief">Cold Storage Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Cold Storage Operator (Shift A)</span></li>
+                                    <li class="role-item"><span class="role-operator">Cold Storage Operator (Shift B)</span></li>
+                                    <li class="role-item"><span class="role-operator">Atmosphere Control Technician</span></li>
+                                    <li class="role-item"><span class="role-specialist">Export Documentation Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Customs & Compliance Coordinator</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Procurement (Local)</span>
+                                    <span class="accordion-desc">Operational Procurement</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-specialist">Operational Procurement Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Supplier Performance Tracking (Group alignment)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Finance & Administrative Affairs</span>
+                                    <span class="accordion-desc">Factory Finance & Administrative Operations</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Factory Finance Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Accounting/ERP Finance Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Administrative Affairs & Facility Management</span></li>
+                                    <li class="role-item"><span class="role-specialist">Payroll/Personnel Affairs (coordinated with Group HR)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">OHS, Environment & Compliance</span>
+                                    <span class="accordion-desc">Occupational Health & Safety and Environmental Management</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-specialist">OHS Specialist (45001)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Environmental Specialist (14001/permits)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Emergency & Crisis Coordination</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">FACTORY 2 - B2C BRAND/PRIVATE LABEL</span>
+                                    <span class="accordion-desc">Private Label & Filling</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div style="padding:12px 16px; background:#fff8f0; border-radius:8px; margin:8px 16px; font-size:11px; font-weight:700; color:#f57c00; letter-spacing:0.5px;">▶ FACTORY 2 SUB-UNITS</div>
+                                <ul class="role-list">
+<li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Factory Management</span>
+                                    <span class="accordion-desc">Site Director (B2C) & Senior Staff</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">FACTORY DIRECTOR (Site Director - B2C)</span></li>
+                                    <li class="role-item"><span class="role-director">Product, Recipe & R&D Director</span></li>
+                                    <li class="role-item"><span class="role-assistant">Factory Executive Assistant</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Product, Recipe & R&D</span>
+                                    <span class="accordion-desc">Formulation & Product Development</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Product Development Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Formulation Specialists</span></li>
+                                    <li class="role-item"><span class="role-specialist">Packaging Development Specialist (material/compatibility)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regulation & Labeling Compliance Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Documentation & Specification Manager</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Production Operations (MENS)</span>
+                                    <span class="accordion-desc">Filling, Packaging, Wrapping</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Production Manager (Filling/Packaging)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Changeover & SMED Coordinator</span></li>
+                                    <li class="role-item"><span class="role-chief">Shift Supervisors / Line Chiefs</span></li>
+                                    <li class="role-item"><span class="role-operator">Operators (filling, capping, labeling, wrapping)</span></li>
+                                    <li class="section-divider">--- SECTION 1: FRUIT RECEIPT & PRE-PROCESSING ---</li>
+                                    <li class="role-item"><span class="role-operator">Fruit Receipt Scale Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Pool & Washing Line Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Sorting Belt Personnel 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Sorting Belt Personnel 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Sorting Belt Personnel 3</span></li>
+                                    <li class="role-item"><span class="role-operator">Mill & Crusher Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Press Line Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Posabilider Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Ultrafiltration Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Evaporation Tower Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Evaporation Tower Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Pasteurizer Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Aseptic Drum Filler Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Aseptic Drum Filler Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Drum Capping & Labeling Worker</span></li>
+                                    <li class="role-item"><span class="role-operator">Drum Transport & Stacking Worker</span></li>
+                                    <li class="section-divider">--- SECTION 2: FILLING & PACKAGING ---</li>
+                                    <li class="role-item"><span class="role-operator">Syrup & Mix Preparation Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">TetraPak Filler Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">TetraPak Filler Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Glass Bottle Washing & Filling Line Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">PET Blow & Fill Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Capper Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Labeling (Sleeve) Machine Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Date Coding (Inkjet) Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Shrink & Wrapping Machine Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Robot Palletizer Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Box Feeder 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Box Feeder 2</span></li>
+                                    <li class="role-item"><span class="role-operator">End-of-Line Quality Checker</span></li>
+                                    <li class="role-item"><span class="role-operator">Production Area Cleaner</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Quality & Food Safety (QMCC)</span>
+                                    <span class="accordion-desc">Independent, Extended Quality</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">QUALITY DIRECTOR (B2C)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Food Safety/HACCP Leader (22000)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Laboratory & Release Team</span></li>
+                                    <li class="role-item"><span class="role-specialist">CAPA & Change Management Coordinator</span></li>
+                                    <li class="role-item"><span class="role-specialist">Supplier Quality (incl. packaging/labels)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Market Complaints & Non-conformance Management</span></li>
+                                    <li class="role-item"><span class="role-specialist">Recall & Crisis Management Responsible</span></li>
+                                    <li class="role-item"><span class="role-chief">Laboratory Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Senior Microbiologist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Chemist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Instrumental Analysis Specialist</span></li>
+                                    <li class="role-item"><span class="role-assistant">Laboratory Technician 1</span></li>
+                                    <li class="role-item"><span class="role-assistant">Laboratory Technician 2</span></li>
+                                    <li class="role-item"><span class="role-chief">Process Quality Control Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Raw Material Receipt Checker</span></li>
+                                    <li class="role-item"><span class="role-operator">Inline Quality Checker 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Inline Quality Checker 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Packaging Material Checker</span></li>
+                                    <li class="role-item"><span class="role-operator">Hygiene & Sanitation Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Sampling & Archive Personnel</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Private Label & Contract Operations</span>
+                                    <span class="accordion-desc">Customer-focused Operations</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Contract Customer Operations Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Order & Planning Coordinator</span></li>
+                                    <li class="role-item"><span class="role-specialist">Specification/Approval Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Customer Audit Coordinator (2nd party audit)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Warehouse, Dispatch & Distribution</span>
+                                    <span class="accordion-desc">Inventory & Logistics Management</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Warehouse Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Finished Goods Warehouse Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Inventory Control & Count Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Waybill & Dispatch Officer</span></li>
+                                    <li class="role-item"><span class="role-operator">Reach Truck Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Reach Truck Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Forklift Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Forklift Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Electric Pallet Truck Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Dispatch Loader 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Dispatch Loader 2</span></li>
+                                    <li class="role-item"><span class="role-chief">Raw Material & Packaging Warehouse Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Packaging Warehouse Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Raw Material Receipt Control Clerk</span></li>
+                                    <li class="role-item"><span class="role-specialist">Dispatch Planning</span></li>
+                                    <li class="role-item"><span class="role-specialist">Returns & Recall Operations</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Energy & Utility (REM)</span>
+                                    <span class="accordion-desc">B2C Energy Management</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Energy Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Water/Waste/Efficiency Tracking</span></li>
+                                    <li class="role-item"><span class="role-operator">Boiler Room Operator (Stoker)</span></li>
+                                    <li class="role-item"><span class="role-operator">Cooling Group (Chiller) Technician</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Maintenance & Technical Services</span>
+                                    <span class="accordion-desc">Mechanical, Electrical, Calibration</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Maintenance Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Mechanical Maintenance Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Mechanical Maintenance (Pump/Gearbox)</span></li>
+                                    <li class="role-item"><span class="role-operator">Mechanical Maintenance (Hydraulic/Pneumatic)</span></li>
+                                    <li class="role-item"><span class="role-operator">Argon Welder (Stainless Pipe)</span></li>
+                                    <li class="role-item"><span class="role-operator">Gas & Electric Welder</span></li>
+                                    <li class="role-item"><span class="role-chief">Electrical & Automation Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Electrical Maintenance Technician 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Electrical Maintenance Technician 2</span></li>
+                                    <li class="role-item"><span class="role-operator">PLC & Automation Technician</span></li>
+                                    <li class="role-item"><span class="role-operator">Instrumentation Technician</span></li>
+                                    <li class="role-item"><span class="role-specialist">Calibration & Critical Measurement Equipment Management</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Procurement (Local) + Packaging</span>
+                                    <span class="accordion-desc">Local Supply & Packaging</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-specialist">Procurement Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Packaging/Label Supply Coordinator</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Finance & Administrative Affairs</span>
+                                    <span class="accordion-desc">Factory Finance & Admin</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Factory Finance Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Accounting/ERP Finance</span></li>
+                                    <li class="role-item"><span class="role-specialist">Administrative Affairs/Payroll</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">OHS, Environment & Compliance</span>
+                                    <span class="accordion-desc">Occupational Safety & Environment</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-specialist">OHS Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Environmental Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Emergency/Crisis Coordination</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Factory Social Services</span>
+                                    <span class="accordion-desc">Canteen, Security, Laundry</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Administrative Affairs Chief (Factory)</span></li>
+                                    <li class="role-item"><span class="role-chief">Canteen Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Head Chef (Industrial Kitchen)</span></li>
+                                    <li class="role-item"><span class="role-operator">Hot Meal Chef</span></li>
+                                    <li class="role-item"><span class="role-operator">Cold Starter & Salad Responsible</span></li>
+                                    <li class="role-item"><span class="role-operator">Kitchen Assistant 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Kitchen Assistant 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Dishwasher 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Dishwasher 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Canteen Cleaner</span></li>
+                                    <li class="role-item"><span class="role-operator">Laundry Responsible (Workwear)</span></li>
+                                    <li class="role-item"><span class="role-chief">Factory Security Supervisor</span></li>
+                                    <li class="role-item"><span class="role-operator">Security Guard (Main Gate) - A</span></li>
+                                    <li class="role-item"><span class="role-operator">Security Guard (Main Gate) - B</span></li>
+                                    <li class="role-item"><span class="role-operator">Security Guard (Scale Gate)</span></li>
+                                    <li class="role-item"><span class="role-operator">Night Watchman</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">ÖLÇEK TARIM A.Ş.</span>
+                                    <span class="accordion-desc">Supply Chain & Agricultural Operations</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div style="padding:10px 14px 6px; background:#f0fdf4; margin:8px 14px 4px; border-radius:6px; font-size:10px; font-weight:700; color:#27ae60; letter-spacing:0.5px;">▶ ÖLÇEK TARIM SUB-UNITS</div>
+                                <ul class="role-list">
+<li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Supply Chain & Procurement</span>
+                                    <span class="accordion-desc">Agricultural Purchase & Contract Farming</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">GENERAL MANAGER (ÖLÇEK)</span></li>
+                                    <li class="role-item"><span class="role-manager">Supply Chain Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Agricultural Procurement Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regional Purchase Responsible (Apple)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regional Purchase Responsible (Cherry/Pomegranate)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regional Purchase Responsible (Peach/Apricot)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Spot Market Purchase Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Market Hall Purchase Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Producer Receivables & Payment Tracker</span></li>
+                                    <li class="role-item"><span class="role-specialist">Agricultural Input (Fertilizer/Pesticide) Purchaser</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Logistics & Fleet</span>
+                                    <span class="accordion-desc">Transportation, Vehicles, Scale</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Logistics Operations Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Fleet Management Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Route & Trip Planning Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Fuel & HGS Tracking Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Vehicle Maintenance & Inspection Tracker</span></li>
+                                    <li class="role-item"><span class="role-operator">Head Driver (Truck Fleet)</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Long Haul / Frigo) - 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Long Haul / Frigo) - 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Long Haul / Frigo) - 3</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Long Haul / Frigo) - 4</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Long Haul / Frigo) - 5</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Tipper/Bulk) - 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Truck Driver (Tipper/Bulk) - 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Van Driver (Field Service)</span></li>
+                                    <li class="role-item"><span class="role-operator">Heavy Vehicle Engine Mechanic</span></li>
+                                    <li class="role-item"><span class="role-operator">Auto Electrician</span></li>
+                                    <li class="role-item"><span class="role-operator">Tire Fitter</span></li>
+                                    <li class="role-item"><span class="role-chief">Scale & Collection Center Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Scale Operator (Inbound)</span></li>
+                                    <li class="role-item"><span class="role-operator">Scale Operator (Outbound)</span></li>
+                                    <li class="role-item"><span class="role-operator">Field Forklift Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Loading Worker 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Loading Worker 2</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Agricultural Field Operations</span>
+                                    <span class="accordion-desc">Field Team & Workers</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Agricultural Operations Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Head Agricultural Engineer</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regional Agricultural Engineer (Central Anatolia)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Regional Agricultural Engineer (South)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Agricultural Technician (Crop Protection)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Agricultural Technician (Irrigation/Fertilization)</span></li>
+                                    <li class="role-item"><span class="role-operator">Agricultural Drone Pilot (Spraying)</span></li>
+                                    <li class="role-item"><span class="role-operator">Tractor Operator 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Tractor Operator 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Harvester (Shaker) Operator</span></li>
+                                    <li class="role-item"><span class="role-operator">Seasonal Worker Supervisor</span></li>
+                                    <li class="role-item"><span class="role-operator">Field Payroll Officer</span></li>
+                                    <li class="role-item"><span class="role-operator">Field Worker (Harvest/Pruning Team)</span></li>
+                                    <li class="role-item"><span class="role-operator">Field Camp Cook</span></li>
+                                    <li class="role-item"><span class="role-operator">Irrigation Systems Officer</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CEO OFFICE -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-ceo">
+                    <div class="card-header">
+                        <span class="card-badge">CEO</span>
+                        <h2 class="card-title">CEO OFFICE</h2>
+                        <p class="card-subtitle">Sales & Business Development</p>
+                        <span class="card-clevel-label">GROUP CEO</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Domestic Sales (Retail)</span>
+                                    <span class="accordion-desc">B2C Markets</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">DOMESTIC SALES DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-manager">National Chain Stores Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Retail Stores Group Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Key Account Manager (Migros Group)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Key Account Manager (Carrefour Group)</span></li>
+                                    <li class="role-item"><span class="role-chief">Discount Store Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">KAM (BİM)</span></li>
+                                    <li class="role-item"><span class="role-specialist">KAM (A101/Şok)</span></li>
+                                    <li class="role-item"><span class="role-manager">Traditional Channel Sales Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Regional Sales Chief (Istanbul Europe)</span></li>
+                                    <li class="role-item"><span class="role-chief">Regional Sales Chief (Istanbul Anatolia)</span></li>
+                                    <li class="role-item"><span class="role-chief">Regional Sales Chief (Ankara/Central Anatolia)</span></li>
+                                    <li class="role-item"><span class="role-chief">Regional Sales Chief (Izmir/Aegean)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Field Sales Representative 1</span></li>
+                                    <li class="role-item"><span class="role-specialist">Field Sales Representative 2</span></li>
+                                    <li class="role-item"><span class="role-specialist">Field Sales Representative 3</span></li>
+                                    <li class="role-item"><span class="role-specialist">Field Sales Representative 4</span></li>
+                                    <li class="role-item"><span class="role-manager">EDT / Horeca Sales Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Hotel & Restaurant Sales Responsible</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">International Sales (Retail)</span>
+                                    <span class="accordion-desc">Global B2C</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">INTERNATIONAL SALES DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-chief">Export Regional Manager (Europe)</span></li>
+                                    <li class="role-item"><span class="role-chief">Export Regional Manager (MENA/Asia)</span></li>
+                                    <li class="role-item"><span class="role-chief">Export Regional Manager (Americas)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Global Key Account Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Foreign Trade Operations Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Customs & Legislation Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Export Operations Specialist 1</span></li>
+                                    <li class="role-item"><span class="role-specialist">Export Operations Specialist 2</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Domestic Concentrate (B2B)</span>
+                                    <span class="accordion-desc">Industrial Sales</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">INDUSTRIAL SALES DIRECTOR (B2B)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Domestic Industrial Sales Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Domestic Sales Representative</span></li>
+                                    <li class="role-item"><span class="role-specialist">Technical Customer/Specification Compliance Specialist</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">International Concentrate (B2B)</span>
+                                    <span class="accordion-desc">Export Concentrate/Puree</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-director">GLOBAL B2B SALES DIRECTOR</span></li>
+                                    <li class="role-item"><span class="role-chief">Export Regional Manager (Europe)</span></li>
+                                    <li class="role-item"><span class="role-chief">Export Regional Manager (MENA/Asia)</span></li>
+                                    <li class="role-item"><span class="role-chief">Export Regional Manager (Americas)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Global Key Account Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Foreign Trade Operations Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Customs & Legislation Specialist</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">E-Commerce & Marketing</span>
+                                    <span class="accordion-desc">Online Sales & Trade Marketing</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">E-Commerce Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Marketplace Operations Chief (Trendyol/Hepsiburada)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Amazon Operations Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">E-Commerce Logistics & Returns Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Digital Customer Service Representative</span></li>
+                                    <li class="role-item"><span class="role-specialist">Product Content Editor</span></li>
+                                    <li class="role-item"><span class="role-manager">Trade Marketing Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Category Management Specialist</span></li>
+                                    <li class="role-item"><span class="role-chief">Field Display & Merchandising Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Merchandiser (Shelf Arrangement) - Region 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Merchandiser (Shelf Arrangement) - Region 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Merchandiser (Shelf Arrangement) - Region 3</span></li>
+                                    <li class="role-item"><span class="role-operator">Tasting & Activity Staff 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Tasting & Activity Staff 2</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CFO OFFICE -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-cfo">
+                    <div class="card-header">
+                        <span class="card-badge">CFO</span>
+                        <h2 class="card-title">CFO OFFICE</h2>
+                        <p class="card-subtitle">Finance & Consolidation</p>
+                        <span class="card-clevel-label">GROUP CFO</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Financial Affairs Group</span>
+                                    <span class="accordion-desc">Finance, Accounting, Procurement</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">GROUP CFO (Chief Financial Officer)</span></li>
+                                    <li class="section-divider">--- FINANCE & TREASURY ---</li>
+                                    <li class="role-item"><span class="role-manager">Finance & Treasury Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Treasury Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Cash Flow & Banking Relations Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Financial Risk (Hedging) Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Credit & Letter of Guarantee Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Payment & Instruction Operations Specialist</span></li>
+                                    <li class="section-divider">--- ACCOUNTING ---</li>
+                                    <li class="role-item"><span class="role-manager">Accounting Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">General Accounting Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Tax & Declaration Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">e-Ledger / e-Invoice / e-Archive Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Cost Accounting Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Cost Accounting Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Fixed Assets & Depreciation Responsible</span></li>
+                                    <li class="role-item"><span class="role-specialist">Import/Export Accounting Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Accounts Receivable Reconciliation Clerk</span></li>
+                                    <li class="role-item"><span class="role-assistant">Accounting Assistant</span></li>
+                                    <li class="section-divider">--- BUDGET & REPORTING ---</li>
+                                    <li class="role-item"><span class="role-manager">Budget & Reporting Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">IFRS Reporting Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Budget Control Analyst</span></li>
+                                    <li class="section-divider">--- PROCUREMENT ---</li>
+                                    <li class="role-item"><span class="role-manager">Central Procurement Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Technical Procurement Chief</span></li>
+                                    <li class="role-item"><span class="role-chief">Administrative Procurement Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Procurement Specialist (Raw Material)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Procurement Specialist (Packaging)</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CHRO OFFICE -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-chro">
+                    <div class="card-header">
+                        <span class="card-badge">CHRO</span>
+                        <h2 class="card-title">HR & HUMAN RESOURCES</h2>
+                        <p class="card-subtitle">Talent Management</p>
+                        <span class="card-clevel-label">CHRO</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Human Resources</span>
+                                    <span class="accordion-desc">Talent, Payroll, Training</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">CHRO (Chief Human Resources Officer)</span></li>
+                                    <li class="role-item"><span class="role-manager">Human Resources Manager</span></li>
+                                    <li class="section-divider">--- PAYROLL & PERSONNEL ---</li>
+                                    <li class="role-item"><span class="role-chief">Payroll & Personnel Affairs Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Senior Payroll Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Payroll Accrual Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">SGK & Incentives Specialist</span></li>
+                                    <li class="role-item"><span class="role-assistant">Personnel Affairs Assistant</span></li>
+                                    <li class="section-divider">--- TALENT & RECRUITMENT ---</li>
+                                    <li class="role-item"><span class="role-chief">Talent & Recruitment Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Senior Recruitment Specialist (White Collar)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Recruitment Specialist (Blue Collar/Field)</span></li>
+                                    <li class="section-divider">--- TRAINING & DEVELOPMENT ---</li>
+                                    <li class="role-item"><span class="role-chief">Training & Development Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Corporate Academy Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Performance Management Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Internal Communication Specialist</span></li>
+                                    <li class="role-item"><span class="role-assistant">HR Intern</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CACO OFFICE -->
+            <div class="branch">
+                <div class="branch-connector"></div>
+                <div class="org-card t-caco">
+                    <div class="card-header">
+                        <span class="card-badge">CACO</span>
+                        <h2 class="card-title">TECHNOLOGY & COMMUNICATION</h2>
+                        <p class="card-subtitle">IT & Corporate Communication</p>
+                        <span class="card-clevel-label">CHIEF ADMINISTRATIVE & COMMUNICATION OFFICER</span>
+                    </div>
+                    <ul class="accordion-list">
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Information Technology (IT)</span>
+                                    <span class="accordion-desc">Systems, Software, Support</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-clevel">CHIEF ADMINISTRATIVE & COMMUNICATION OFFICER</span></li>
+                                    <li class="role-item"><span class="role-manager">System & Infrastructure Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">Network & Security Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Cybersecurity Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Server & Virtualization Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Data Backup Responsible</span></li>
+                                    <li class="role-item"><span class="role-manager">Software & Business Applications Manager</span></li>
+                                    <li class="role-item"><span class="role-chief">ERP Project Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">ERP Support Specialist (Finance Module)</span></li>
+                                    <li class="role-item"><span class="role-specialist">ERP Support Specialist (Logistics Module)</span></li>
+                                    <li class="role-item"><span class="role-specialist">Software Development Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Business Intelligence (BI) & Data Analyst</span></li>
+                                    <li class="role-item"><span class="role-chief">Technical Support (Helpdesk) Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Senior System Support Specialist</span></li>
+                                    <li class="role-item"><span class="role-operator">Hardware & PC Technician</span></li>
+                                    <li class="role-item"><span class="role-operator">Low Current & Camera Technician</span></li>
+                                    <li class="role-item"><span class="role-assistant">IT Intern</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Corporate Communication</span>
+                                    <span class="accordion-desc">Brand, PR, Digital</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Corporate Communication Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Brand Manager</span></li>
+                                    <li class="role-item"><span class="role-specialist">Corporate Communication Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Digital Marketing Chief</span></li>
+                                    <li class="role-item"><span class="role-specialist">Social Media Management Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Graphic Design Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Video Production & Editing Specialist</span></li>
+                                    <li class="role-item"><span class="role-specialist">Web Master & SEO Specialist</span></li>
+                                    <li class="role-item"><span class="role-assistant">Communication Assistant</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="accordion-item">
+                            <button class="accordion-trigger" onclick="toggleAccordion(this)" aria-expanded="false">
+                                <div>
+                                    <span class="accordion-title">Administrative Affairs & Fleet</span>
+                                    <span class="accordion-desc">Headquarters Operations</span>
+                                </div>
+                                <span class="accordion-icon">+</span>
+                            </button>
+                            <div class="accordion-content">
+                                <ul class="role-list">
+                                    <li class="role-item"><span class="role-manager">Administrative Affairs Manager</span></li>
+                                    <li class="section-divider">--- FLEET ---</li>
+                                    <li class="role-item"><span class="role-chief">Fleet & Transportation Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Executive Driver (Chairman)</span></li>
+                                    <li class="role-item"><span class="role-operator">Executive Driver (Vice Chairman)</span></li>
+                                    <li class="role-item"><span class="role-operator">Executive Driver (CEO)</span></li>
+                                    <li class="role-item"><span class="role-operator">Pool Vehicle Driver 1</span></li>
+                                    <li class="role-item"><span class="role-operator">Pool Vehicle Driver 2</span></li>
+                                    <li class="role-item"><span class="role-operator">Employee Shuttle Driver</span></li>
+                                    <li class="role-item"><span class="role-operator">Motorcycle Courier</span></li>
+                                    <li class="section-divider">--- OFFICE MANAGEMENT ---</li>
+                                    <li class="role-item"><span class="role-chief">Office & Facility Management Chief</span></li>
+                                    <li class="role-item"><span class="role-operator">Receptionist</span></li>
+                                    <li class="role-item"><span class="role-operator">Office Boy / Document Distribution</span></li>
+                                    <li class="role-item"><span class="role-operator">Archive Clerk</span></li>
+                                    <li class="role-item"><span class="role-operator">Office Cleaning Staff</span></li>
+                                    <li class="role-item"><span class="role-operator">Tea & Service Staff</span></li>
+                                    <li class="section-divider">--- SECURITY & KITCHEN ---</li>
+                                    <li class="role-item"><span class="role-chief">Security Supervisor</span></li>
+                                    <li class="role-item"><span class="role-operator">Security Guard (Day Shift)</span></li>
+                                    <li class="role-item"><span class="role-operator">Security Guard (Night Shift)</span></li>
+                                    <li class="role-item"><span class="role-chief">Holding Head Chef</span></li>
+                                    <li class="role-item"><span class="role-operator">VIP Chef</span></li>
+                                    <li class="role-item"><span class="role-operator">Kitchen Assistant</span></li>
+                                    <li class="role-item"><span class="role-operator">Dishwasher</span></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" onclick="expandAll()">Expand All</button>
+        <button class="control-btn" onclick="collapseAll()">Collapse All</button>
+    </div>
+
+    <script>
+        function drawConnectors() {
+            const icra = document.getElementById('branch-icra');
+            const clevelEl = document.getElementById('level-clevel');
+            const svg = document.getElementById('icra-clevel-svg');
+            if (!icra || !clevelEl || !svg) return;
+
+            const branches = clevelEl.querySelectorAll('.branch');
+            if (branches.length === 0) return;
+
+            while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+            const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+            defs.innerHTML = `<marker id="arr" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#1565c0"/>
+            </marker>`;
+            svg.appendChild(defs);
+
+            const clevelRect = clevelEl.getBoundingClientRect();
+            const icraRect = icra.getBoundingClientRect();
+
+            const icraBottomX = (icraRect.left + icraRect.right) / 2 - clevelRect.left;
+            const icraBottomY = icraRect.bottom - clevelRect.top;
+
+            const branchTops = [];
+            branches.forEach(b => {
+                const r = b.getBoundingClientRect();
+                branchTops.push({
+                    x: (r.left + r.right) / 2 - clevelRect.left,
+                    y: r.top - clevelRect.top
+                });
+            });
+
+            const leftX = Math.min(...branchTops.map(b => b.x));
+            const rightX = Math.max(...branchTops.map(b => b.x));
+            const horizY = Math.min(...branchTops.map(b => b.y)) - 13;
+
+            function line(x1, y1, x2, y2, opts = {}) {
+                const el = document.createElementNS('http://www.w3.org/2000/svg','line');
+                el.setAttribute('x1', x1); el.setAttribute('y1', y1);
+                el.setAttribute('x2', x2); el.setAttribute('y2', y2);
+                el.setAttribute('stroke', opts.color || '#1565c0');
+                el.setAttribute('stroke-width', opts.width || '2');
+                if (opts.arrow) el.setAttribute('marker-end','url(#arr)');
+                svg.appendChild(el);
+            }
+
+            line(icraBottomX, icraBottomY, icraBottomX, horizY, { color: '#1565c0', width: 2 });
+            line(leftX, horizY, rightX, horizY, { color: '#1565c0', width: 2 });
+            branchTops.forEach(b => {
+                line(b.x, horizY, b.x, b.y, { color: '#1565c0', width: 2 });
+            });
+        }
+
+        window.addEventListener('load', () => { setTimeout(drawConnectors, 100); });
+        window.addEventListener('resize', drawConnectors);
+
+        function drawIcraMerkezLine() {
+            const icra = document.getElementById('branch-icra');
+            const merkez = document.getElementById('branch-merkez');
+            const svg = document.getElementById('icra-merkez-svg');
+            const lineel = document.getElementById('icra-line');
+            if (!icra || !merkez || !svg || !lineel) return;
+
+            const icraRect = icra.getBoundingClientRect();
+            const merkezRect = merkez.getBoundingClientRect();
+            const gap = merkezRect.left - icraRect.right;
+            const svgWidth = Math.max(gap + 2, 10);
+            const svgHeight = Math.abs(merkezRect.top - icraRect.top) + merkezRect.height / 2 + 10;
+            svg.setAttribute('width', svgWidth);
+            svg.setAttribute('height', svgHeight * 2);
+            svg.style.top = '0';
+            svg.style.right = -svgWidth + 'px';
+            const x1 = 2, y1 = icraRect.height / 2;
+            const x2 = svgWidth - 8, y2 = (merkezRect.top - icraRect.top) + merkezRect.height / 2;
+            lineel.setAttribute('x1', x1); lineel.setAttribute('y1', y1);
+            lineel.setAttribute('x2', x2); lineel.setAttribute('y2', y2);
+        }
+
+        window.addEventListener('load', () => { setTimeout(drawIcraMerkezLine, 150); });
+        window.addEventListener('resize', drawIcraMerkezLine);
+
+        function toggleAccordion(trigger) {
+            const content = trigger.nextElementSibling;
+            const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+            trigger.setAttribute('aria-expanded', !isExpanded);
+            if (content) content.classList.toggle('open');
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+                trigger.setAttribute('aria-expanded', 'true');
+                const content = trigger.nextElementSibling;
+                if (content) content.classList.add('open');
+            });
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+                trigger.setAttribute('aria-expanded', 'false');
+                const content = trigger.nextElementSibling;
+                if (content) content.classList.remove('open');
+            });
+        }
+    </script>
+
+</body>
+</html>
